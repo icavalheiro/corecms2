@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CoreCMS
+namespace CoreCMS.Systems
 {
     /// <summary>
     /// This class is to be inherited by the systems that will handle custom contents on the CMS.
@@ -17,10 +17,19 @@ namespace CoreCMS
         private IMongoCollection<T> _colection;
         public IMongoCollection<T> Collection { get { return GetCollection(); } }
 
+        public readonly string ColletionName;
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="collectionName">The name of the collection to be used in the Database.</param>
+        public BaseSystem(string collectionName)
+        {
+            ColletionName = collectionName;
+        }
+
         /// <summary>
         /// Get the collection that stores the contents of this type.
-        /// Please note that the name of the collection in the MongoDB instance will be
-        /// the fully assembly qualified name of the type.
         /// </summary>
         /// <returns>The collection.</returns>
         protected virtual IMongoCollection<T> GetCollection()
@@ -28,12 +37,20 @@ namespace CoreCMS
             //set up collection if it was not setup yet
             if(_colection == null)
             {
-                var tType = typeof(T);
-                _colection = DatabaseContext.Database.GetCollection<T>(tType.AssemblyQualifiedName);
+                _colection = DatabaseContext.Database.GetCollection<T>(ColletionName);
             }
 
             //return collection
             return _colection;
+        }
+
+        /// <summary>
+        /// Clears all the contents in the collection.
+        /// Use with care.
+        /// </summary>
+        public virtual async Task ClearAsync()
+        {
+            await Collection.DeleteManyAsync(x => true);
         }
 
         /// <summary>
@@ -57,7 +74,27 @@ namespace CoreCMS
             if (id == ObjectId.Empty)
                 return null;
 
-            return Collection.AsQueryable().Where(x => x.Id == id).FirstOrDefault();
+            var query = Collection.AsQueryable().Where(x => x.Id == id);
+            return query.FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Get a page of contents from the collection.
+        /// </summary>
+        /// <param name="page">Page number, starts from 0.</param>
+        /// <param name="pageSize">Size of the pages (number of contents to retrieve), must be greater or equal to 1.</param>
+        /// <returns>An array with the paginated contetns.</returns>
+        public virtual T[] GetPage(int page = 0, int pageSize = 25)
+        {
+            //threat imput
+            if (page <= 0)
+                page = 0;
+
+            if (pageSize <= 1)
+                page = 1;
+
+            var query = Collection.AsQueryable().Skip(pageSize * page).Take(pageSize);
+            return query.ToArray();
         }
 
         /// <summary>
