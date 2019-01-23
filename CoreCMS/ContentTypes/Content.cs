@@ -13,6 +13,6 @@ namespace CoreCMS
     public class Content : BaseContent
     {
         public TranslatableString Name { get; set; }
-        public ObjectId ParentId { get; set; }
+        public Guid ParentId { get; set; }
     }
 }

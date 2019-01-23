@@ -10,16 +10,16 @@ namespace CoreCMS
     /// Base content class, should be inherited by all classes that want to be stored
     /// in the database.
     /// </summary>
-    public class BaseContent
+    public abstract class BaseContent
     {
         [BsonId]
-        public ObjectId Id { get; private set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Really important property that will allow us to serialize and deserialize
         /// this objects without losing any data.
         /// </summary>
-        [BsonElement("full_type_name")]
+        [BsonElement("_full_t")]
         private string _typeName { get; set; }
 
         [BsonIgnore]

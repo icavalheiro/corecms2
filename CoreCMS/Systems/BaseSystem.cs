@@ -59,7 +59,7 @@ namespace CoreCMS.Systems
         /// <typeparam name="Y">The type of the content to be retrieved.</typeparam>
         /// <param name="id">The ID of the content to be searched for.</param>
         /// <returns>The content.</returns>
-        public virtual Y GetById<Y>(ObjectId id) where Y : T
+        public virtual Y GetById<Y>(Guid id) where Y : T
         {
             return (Y)GetById(id);
         }
@@ -69,9 +69,9 @@ namespace CoreCMS.Systems
         /// </summary>
         /// <param name="id">The ID of the content to be searched for.</param>
         /// <returns>The content.</returns>
-        public virtual T GetById(ObjectId id)
+        public virtual T GetById(Guid id)
         {
-            if (id == ObjectId.Empty)
+            if (id == Guid.Empty)
                 return null;
 
             var query = Collection.AsQueryable().Where(x => x.Id == id);
@@ -158,7 +158,7 @@ namespace CoreCMS.Systems
 
             //we will verify if the username is unique before saving it
             var id = content.Id;
-            if (id == ObjectId.Empty)
+            if (id == Guid.Empty)
             {
                await Collection.InsertOneAsync(content);
             }

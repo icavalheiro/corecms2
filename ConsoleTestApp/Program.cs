@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using CoreCMS;
 using MongoDB.Driver;
+using Newtonsoft.Json;
 
 namespace ConsoleTestApp
 {
@@ -42,6 +43,12 @@ namespace ConsoleTestApp
             var randomItemFromDb = Cms.ContentSystem.GetById(randomItem.Id);
             sw.Stop();
             Console.WriteLine($"Found a random item in {sw.ElapsedMilliseconds} ms");
+
+            var randomItemSerialized = JsonConvert.SerializeObject(new JsonSerializedContent(randomItemFromDb));
+            Console.WriteLine($"Serialized item: {randomItemSerialized}");
+            var deserializedItem = JsonConvert.DeserializeObject<JsonSerializedContent>(randomItemSerialized);
+            var deserializedContent = deserializedItem.Deserialize();
+            Console.WriteLine($"Deserialized item {JsonConvert.SerializeObject(deserializedContent)}");
         }
 
         static void FillDatabase(int toSave)
