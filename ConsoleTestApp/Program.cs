@@ -27,7 +27,7 @@ namespace ConsoleTestApp
             Console.WriteLine($"Clenead all db entries in {sw.ElapsedMilliseconds} ms");
             sw = new Stopwatch(); 
             sw.Start();
-            FillDatabase(fillAmmount);
+            await FillDatabase(fillAmmount);
             sw.Stop();
             Console.WriteLine($"Added all car entries in {sw.ElapsedMilliseconds} ms");
 
@@ -49,9 +49,13 @@ namespace ConsoleTestApp
             var deserializedItem = JsonConvert.DeserializeObject<JsonSerializedContent>(randomItemSerialized);
             var deserializedContent = deserializedItem.Deserialize();
             Console.WriteLine($"Deserialized item {JsonConvert.SerializeObject(deserializedContent)}");
+
+            var newCustomContent = new Car();
+            await Cms.ContentSystem.TrySaveAsync(newCustomContent);
+            Console.WriteLine($"Saved custom content with id {newCustomContent.Id}");
         }
 
-        static void FillDatabase(int toSave)
+        static async Task FillDatabase(int toSave)
         {
             const int reportAt = 10_000;
             int counter = 0;
@@ -68,7 +72,7 @@ namespace ConsoleTestApp
                 }
             }
             Console.WriteLine($"Cache created... saving into the DB...");
-            Cms.ContentSystem.Collection.InsertMany(cacheList);
+            await Cms.ContentSystem.TrySaveAsync(cacheList);
             Console.WriteLine($"{toSave} cars saved.");
         }
     }

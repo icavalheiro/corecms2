@@ -149,24 +149,30 @@ namespace CoreCMS.Systems
         /// <typeparam name="Y">Type of the content to be saved.</typeparam>
         /// <param name="content">The content to be saved.</param>
         /// <returns>If it was able to successfully save the content into the database.</returns>
-        public virtual async Task<bool> TrySaveAsync<Y>(Y content) where Y : T
+        public virtual async Task<bool> TrySaveAsync<Y>(params Y[] contents) where Y : T
         {
-            if (content == null)
+            if (contents == null || contents.Length == 0)
             {
                 return false;
             }
 
-            //we will verify if the username is unique before saving it
-            var id = content.Id;
-            if (id == Guid.Empty)
+            //TODO: work with SPANs
+            var contentsToReplace = contents.Where(x => x.Id != Guid.Empty && x != null).ToArray();
+            var contentsToInsert = contents.Where(x => x.Id == Guid.Empty && x != null).ToArray();
+
+            if(contentsToReplace.Length + contentsToInsert.Length != contents.Length)
             {
-               await Collection.InsertOneAsync(content);
+                //we got null entries in the list, we wont accept it
+                return false;
             }
-            else
+
+            //insert the new values
+            await Collection.InsertManyAsync(contentsToInsert);
+
+            //save the edited documents
+            foreach(var content in contentsToReplace)
             {
-                //lets check if the username already existis, and if it does, lets comapre if the IDs are the same
-                //just to make sure it is editing the same username that is already in the database
-                await Collection.ReplaceOneAsync((x) => x.Id == id, content);
+                await Collection.ReplaceOneAsync((x) => x.Id == content.Id, content);
             }
 
             return true;
