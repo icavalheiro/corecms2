@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using CoreCMS;
+using System.Linq;
 
 namespace ConsoleTestApp
 {
@@ -14,6 +15,7 @@ namespace ConsoleTestApp
         public Segment Segment { get; set; }
         public Manufacture Manufacture { get; set; }
         public string PlateNumber { get; set; }
+        public int Year { get; set; }
 
         public Car()
         {
@@ -30,9 +32,14 @@ namespace ConsoleTestApp
             Manufacture = (Manufacture)_random.Next(1, _availableManufatures);
 
             //plate demands a more complex calculations :D
-            var plateNumeral = _random.Next(1, 1000).ToString("0000");
+            var plateNumeral = _random.Next(1, 10000).ToString("0000");
             var plateLetters = GetRandomPlateChar() + GetRandomPlateChar() + GetRandomPlateChar();
             PlateNumber = plateLetters + "-" + plateNumeral;
+
+            //randomize a year
+            Year = _random.Next(1960, DateTime.Now.Year);
+
+            Name = Manufacture + " " + Segment + " '" + (Year % 100).ToString();
         }
 
         private string GetRandomPlateChar()
