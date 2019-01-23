@@ -80,7 +80,7 @@ namespace CoreCMS
         }
 
         /// <summary>
-        /// Check fi this object has a translation for the given culture.
+        /// Check if this object has a translation for the given culture.
         /// </summary>
         /// <param name="culture">Culture to check for the translation.</param>
         /// <returns>True if this object instance has a translation.</returns>
