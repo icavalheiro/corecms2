@@ -6,6 +6,10 @@ using System.Text;
 
 namespace CoreCMS
 {
+    /// <summary>
+    /// Base content class, should be inherited by all classes that want to be stored
+    /// in the database.
+    /// </summary>
     public class BaseContent
     {
         [BsonId]

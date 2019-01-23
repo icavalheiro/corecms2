@@ -4,6 +4,9 @@ using System.Text;
 
 namespace CoreCMS.Tools
 {
+    /// <summary>
+    /// Simple wrapper class to easy console debugging.
+    /// </summary>
     public static class Debug
     {
         public static bool DisableLogs = false;

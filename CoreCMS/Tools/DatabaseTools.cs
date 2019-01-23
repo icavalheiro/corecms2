@@ -2,6 +2,9 @@ using System;
 
 namespace CoreCMS.Tools
 {
+    /// <summary>
+    /// Handle methods to easy working with the MongoDB database.
+    /// </summary>
     public static class DatabaseTools
     {
         /// <summary>

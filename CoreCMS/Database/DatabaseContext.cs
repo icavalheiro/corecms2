@@ -6,6 +6,9 @@ using CoreCMS.Tools;
 
 namespace CoreCMS
 {
+    /// <summary>
+    /// Context to be used to communicate with the MongoDB.
+    /// </summary>
     public static class DatabaseContext
     {
         //singleton db connections

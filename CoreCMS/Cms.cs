@@ -5,11 +5,13 @@ using System.Linq;
 
 namespace CoreCMS
 {
+    /// <summary>
+    /// Base CMS class, responsible for initializing the CMS into memory.
+    /// </summary>
     public static class Cms
     {
         public static Dictionary<string, Type> AvailableSubTypes = new Dictionary<string, Type>();
-
-
+        
         /// <summary>
         /// Constructor.
         /// </summary>
