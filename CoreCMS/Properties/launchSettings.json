@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "CoreCMS": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "MONGODB_HOST": "192.168.99.100",
+        "MONGODB_PORT": "27017",
+        "MONGODB_USER": "root",
+        "MONGODB_PASS": "blah123"
+      }
+    }
+  }
+}
