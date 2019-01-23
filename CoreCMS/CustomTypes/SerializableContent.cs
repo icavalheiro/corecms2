@@ -1,12 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Newtonsoft.Json;
-using CoreCMS;
 
 namespace CoreCMS
 {
-    public sealed class JsonSerializedContent
+    public sealed class SerializableContent
     {
         public string ContentTypeFullName;
         public string Json;
@@ -15,14 +12,14 @@ namespace CoreCMS
         /// Constructor.
         /// Avoid using the empty constructor, use this only for deserialization.
         /// </summary>
-        public JsonSerializedContent() { }
+        public SerializableContent() { }
 
         /// <summary>
         /// Constructor.
         /// Try always to use this constructor when building new objects.
         /// </summary>
         /// <param name="content">Content to be serialized.</param>
-        public JsonSerializedContent(BaseContent content)
+        public SerializableContent(BaseContent content)
         {
             ContentTypeFullName = content.TypeName;
             Json = JsonConvert.SerializeObject(content);

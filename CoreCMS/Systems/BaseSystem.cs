@@ -1,9 +1,6 @@
-using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Linq;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CoreCMS.Systems
@@ -151,29 +148,21 @@ namespace CoreCMS.Systems
         /// <returns>If it was able to successfully save the content into the database.</returns>
         public virtual async Task<bool> TrySaveAsync<Y>(params Y[] contents) where Y : T
         {
-            if (contents == null || contents.Length == 0)
+            if (contents == null || contents.Length == 0 || contents.Where(x => x == null).Count() > 0)
             {
                 return false;
             }
 
             //TODO: work with SPANs
-            var contentsToReplace = contents.Where(x => x.Id != Guid.Empty && x != null).ToArray();
-            var contentsToInsert = contents.Where(x => x.Id == Guid.Empty && x != null).ToArray();
 
-            if(contentsToReplace.Length + contentsToInsert.Length != contents.Length)
-            {
-                //we got null entries in the list, we wont accept it
-                return false;
-            }
+            //get all items that have to be deleted from the collection
+            var idsToDelete = contents.Where(x => x.Id != Guid.Empty && x != null).Select(x => x.Id).ToList();
+
+            //delete all thos eitems
+            await Collection.DeleteManyAsync(x => idsToDelete.Contains(x.Id));
 
             //insert the new values
-            await Collection.InsertManyAsync(contentsToInsert);
-
-            //save the edited documents
-            foreach(var content in contentsToReplace)
-            {
-                await Collection.ReplaceOneAsync((x) => x.Id == content.Id, content);
-            }
+            await Collection.InsertManyAsync(contents);
 
             return true;
         }

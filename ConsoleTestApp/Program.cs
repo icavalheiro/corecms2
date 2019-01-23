@@ -44,15 +44,18 @@ namespace ConsoleTestApp
             sw.Stop();
             Console.WriteLine($"Found a random item in {sw.ElapsedMilliseconds} ms");
 
-            var randomItemSerialized = JsonConvert.SerializeObject(new JsonSerializedContent(randomItemFromDb));
+            var randomItemSerialized = JsonConvert.SerializeObject(new SerializableContent(randomItemFromDb));
             Console.WriteLine($"Serialized item: {randomItemSerialized}");
-            var deserializedItem = JsonConvert.DeserializeObject<JsonSerializedContent>(randomItemSerialized);
+            var deserializedItem = JsonConvert.DeserializeObject<SerializableContent>(randomItemSerialized);
             var deserializedContent = deserializedItem.Deserialize();
             Console.WriteLine($"Deserialized item {JsonConvert.SerializeObject(deserializedContent)}");
 
             var newCustomContent = new Car();
             await Cms.ContentSystem.TrySaveAsync(newCustomContent);
             Console.WriteLine($"Saved custom content with id {newCustomContent.Id}");
+            newCustomContent.Name = "meu custom name";
+            await Cms.ContentSystem.TrySaveAsync(newCustomContent);
+            Console.WriteLine($"Edited content: {JsonConvert.SerializeObject(Cms.ContentSystem.GetById(newCustomContent.Id))}");
         }
 
         static async Task FillDatabase(int toSave)

@@ -12,7 +12,7 @@ namespace CoreCMS
     public static class Cms
     {
         public static Dictionary<string, Type> AvailableSubTypes = new Dictionary<string, Type>();
-        public static ContentSystem ContentSystem = new ContentSystem("contents");
+        public static ContentSystem ContentSystem = new ContentSystem("contents"); 
         
         /// <summary>
         /// Constructor.
