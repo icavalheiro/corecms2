@@ -17,7 +17,7 @@ namespace ConsoleTestApp
 
         static async Task StartTestingRoutine()
         {
-            const int fillAmmount = 2_500_000;
+            const int fillAmmount = 2_500;
 
             var sw = new Stopwatch();
             sw.Start();

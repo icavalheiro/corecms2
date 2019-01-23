@@ -15,25 +15,23 @@ namespace CoreCMS
         [BsonId]
         public ObjectId Id { get; private set; }
 
-        [BsonElement("fully_assembly_qualified_type_name")]
+        /// <summary>
+        /// Really important property that will allow us to serialize and deserialize
+        /// this objects without losing any data.
+        /// </summary>
+        [BsonElement("full_type_name")]
         private string _typeName { get; set; }
 
         [BsonIgnore]
-        public string TypeName { get => GetTypeName(); }
+        public string TypeName { get => _typeName; }
 
         /// <summary>
-        /// Gets the type name of the instance of this object.
+        /// Constructor.
         /// </summary>
-        /// <returns>The type name.</returns>
-        private string GetTypeName()
+        public BaseContent()
         {
-            if (string.IsNullOrEmpty(_typeName))
-            {
-                var myType = this.GetType();
-                _typeName = myType.AssemblyQualifiedName;
-            }
-
-            return _typeName;
+            var myType = this.GetType();
+            _typeName = myType.FullName;
         }
     }
 }

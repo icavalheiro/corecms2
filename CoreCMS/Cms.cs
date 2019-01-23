@@ -52,7 +52,7 @@ namespace CoreCMS
                 BsonClassMap.LookupClassMap(t);
                 
                 //cache it for later use
-                AvailableSubTypes.Add(t.AssemblyQualifiedName, t);
+                AvailableSubTypes.Add(t.FullName, t);
             }
         }
     }
