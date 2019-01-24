@@ -37,7 +37,7 @@ namespace CoreCMS.Systems
                 //save it async
                 Task.Run(async () => {
                     await TrySaveAsync(rootUser);
-                });
+                }).Wait();
             }
         }
 
@@ -88,14 +88,17 @@ namespace CoreCMS.Systems
             //either are unique or already belong to them
             var usernames = Collection.AsQueryable().Select(x => x.Username).ToArray();
             var foundUsersByUsername = GetByUsername(usernames);
-            var mismatch = foundUsersByUsername.Where(x =>
-                (users.Where(y => y.Username == x.Username).First().Id != x.Id))
-                .Count();
-            
-            if(mismatch > 0)
+            if(foundUsersByUsername != null)
             {
-                //some usernames are already taken
-                return false;
+                var mismatch = foundUsersByUsername.Where(x =>
+                    (users.Where(y => y.Username == x.Username).First().Id != x.Id))
+                    .Count();
+            
+                if(mismatch > 0)
+                {
+                    //some usernames are already taken
+                    return false;
+                }
             }
 
             //nothing wrong lets continue to base

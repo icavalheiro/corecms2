@@ -3,3 +3,14 @@
 @{
     Layout = "_Layout";
 }
+
+<form method="post" action="/cms/login">
+    @if(Model.LoginError != null)
+    {
+        <span class="error">@Model.LoginError</span><br />
+    }
+    @Html.AntiForgeryToken()
+    <input name="username" type="text" value="@Model.UsernameFromPost"/><br/>
+    <input name="password" type="password" value="@Model.PasswordFromPost"/><br/>
+    <input type="submit" value="Submit" />
+</form>

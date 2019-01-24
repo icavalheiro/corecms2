@@ -11,9 +11,7 @@ namespace CoreCMS
     /// </summary>
     public class User : BaseContent
     {
-        [BsonIgnore]
-        public string HashedPassword { get { return _hashedPassword; } }
-        private string _hashedPassword { get; set; }
+        public string HashedPassword { get; set; }
         public string Username { get; set; }
         public string Salt { get; set; }
         public int AccessLevel { get; set; }
@@ -24,7 +22,7 @@ namespace CoreCMS
         /// <param name="newPassword">Password to hash and store.</param>
         public void SetPassword(string newPassword)
         {
-            _hashedPassword = GetHashedPassword(newPassword);
+            HashedPassword = GetHashedPassword(newPassword);
         }
 
         /// <summary>
@@ -37,7 +35,8 @@ namespace CoreCMS
         {
             byte[] data = Encoding.UTF8.GetBytes(passwordToHash + Salt);
             data = new SHA256Managed().ComputeHash(data);
-            return Encoding.UTF8.GetString(data);
+            var hashedPassword = Encoding.UTF8.GetString(data);
+            return hashedPassword;
         }
 
         /// <summary>

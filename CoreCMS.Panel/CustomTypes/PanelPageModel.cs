@@ -30,7 +30,7 @@ namespace CoreCMS.Panel.CustomTypes
         /// <summary>
         /// Logout the current user from this session.
         /// </summary>
-        public async Task LogoutUser()
+        public async Task LogoutUserAsync()
         {
             //get the current token
             var token = GetTokenFromRequest();
