@@ -5,12 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using CoreCMS.Panel.Tools;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CoreCMS.Panel.CustomTypes
 {
+    /// <summary>
+    /// Base class for the page models of the Razor Class Library in the CMS Panel.
+    /// </summary>
     public class PanelPageModel : PageModel
     {
         private const string COOKIE_NAME = "CoreCMS_Login";
+
+        public const IActionResult MyView = null;
         
         /// <summary>
         /// Get the current user for the current Request.
@@ -124,7 +130,7 @@ namespace CoreCMS.Panel.CustomTypes
         /// <summary>
         /// Gets the current logged user for this session using the Request.
         /// </summary>
-        /// <returns>the user if it exists.</returns>
+        /// <returns>The user if it exists.</returns>
         private User GetUserFromRequest()
         {
             //we need the token that the user holds in his browser
