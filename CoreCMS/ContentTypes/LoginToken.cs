@@ -12,6 +12,6 @@ namespace CoreCMS
     {
         public DateTime ExpireAt { get; set; }
         public Guid UserId { get; set; }
-        public IPAddress AccessIp { get; set; }
+        public string AccessIp { get; set; }
     }
 }

@@ -83,7 +83,7 @@ namespace ConsoleTestApp
             }
             Console.WriteLine($"Cache created... saving into the DB...");
             await Cms.ContentSystem.TrySaveAsync(cacheList);
-            Console.WriteLine($"{toSave} cars saved.");
+            Console.WriteLine($"{toSave} cars saved");
         }
     }
 }

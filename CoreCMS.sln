@@ -5,7 +5,11 @@ VisualStudioVersion = 15.0.28307.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreCMS", "CoreCMS\CoreCMS.csproj", "{1EF92D84-15DD-45C6-8A0B-F9253E25A0BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTestApp", "ConsoleTestApp\ConsoleTestApp.csproj", "{F152E989-89F0-48BF-98BB-075B6AE5514F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTestApp", "ConsoleTestApp\ConsoleTestApp.csproj", "{F152E989-89F0-48BF-98BB-075B6AE5514F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreCMS.Panel", "CoreCMS.Panel\CoreCMS.Panel.csproj", "{EA85DB33-47CC-4C04-8481-B0C18A067E06}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVCTestApp", "MVCTestApp\MVCTestApp.csproj", "{6DEB61AE-150D-4A3C-8997-ECBE4CA9F495}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{F152E989-89F0-48BF-98BB-075B6AE5514F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F152E989-89F0-48BF-98BB-075B6AE5514F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F152E989-89F0-48BF-98BB-075B6AE5514F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA85DB33-47CC-4C04-8481-B0C18A067E06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA85DB33-47CC-4C04-8481-B0C18A067E06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA85DB33-47CC-4C04-8481-B0C18A067E06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA85DB33-47CC-4C04-8481-B0C18A067E06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DEB61AE-150D-4A3C-8997-ECBE4CA9F495}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DEB61AE-150D-4A3C-8997-ECBE4CA9F495}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DEB61AE-150D-4A3C-8997-ECBE4CA9F495}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DEB61AE-150D-4A3C-8997-ECBE4CA9F495}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

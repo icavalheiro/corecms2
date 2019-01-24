@@ -14,7 +14,32 @@ namespace CoreCMS.Systems
         /// Constructor.
         /// </summary>
         /// <param name="collectionName">Name of the collection in the database.</param>
-        public UserSystem(string collectionName) : base(collectionName) { }
+        public UserSystem(string collectionName) : base(collectionName)
+        {
+            EnsureRootUserExists();
+        }
+
+        /// <summary>
+        /// Ensures that there is at leas a root user in the database.
+        /// Root user would have the following user and pass: root root
+        /// </summary>
+        private void EnsureRootUserExists()
+        {
+            var firstUser = GetPage(0, 1).FirstOrDefault();
+            if(firstUser == null)
+            {
+                //there is no user in the database
+                //lets create the root
+                var rootUser = new User();
+                rootUser.Username = "root";
+                rootUser.SetPassword("root");
+                
+                //save it async
+                Task.Run(async () => {
+                    await TrySaveAsync(rootUser);
+                });
+            }
+        }
 
         /// <summary>
         /// Get a given user by its username.
