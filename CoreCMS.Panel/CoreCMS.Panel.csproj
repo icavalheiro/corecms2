@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -18,4 +18,30 @@
   <ItemGroup>
     <EmbeddedResource Include="Assets\**\*" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="node_modules\**" />
+    <Content Remove="node_modules\**" />
+    <EmbeddedResource Remove="node_modules\**" />
+    <None Remove="node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="package-lock.json" />
+  </ItemGroup>
+
+  <Target Name="InstallFrontEndDependencies" BeforeTargets="PrecompileScripts" Condition="!Exists('node_modules') ">
+      <!-- Ensure Node.js is installed -->
+      <Exec Command="node --version" ContinueOnError="true">
+        <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+      </Exec>
+      <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js and NPM are required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
+      <Message Importance="high" Text="Did not found any 'node_modules' folder, installing node dependencies right now..." />
+      <Exec Command="npm install" />
+  </Target>
+
+  <Target Name="PrecompileScripts" BeforeTargets="BeforeBuild">
+    <Message Importance="high" Text="Build front-end scripts, images and styles..." />
+    <Exec Command="npm run build" />
+  </Target>
 </Project>

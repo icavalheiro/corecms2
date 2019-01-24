@@ -8,3 +8,6 @@ MVCTestApp/obj/
 MVCTestApp/bin/
 CoreCMS.Panel/bin/
 CoreCMS.Panel/Assets/
+CoreCMS.Panel/yarn.lock
+CoreCMS.Panel/package-lock.json
+CoreCMS.Panel/node_modules/
