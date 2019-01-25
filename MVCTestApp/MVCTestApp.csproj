@@ -13,6 +13,7 @@
 
 
   <ItemGroup>
+    <ProjectReference Include="..\ConsoleTestApp\ConsoleTestApp.csproj" />
     <ProjectReference Include="..\CoreCMS.Panel\CoreCMS.Panel.csproj" />
     <ProjectReference Include="..\CoreCMS\CoreCMS.csproj" />
   </ItemGroup>

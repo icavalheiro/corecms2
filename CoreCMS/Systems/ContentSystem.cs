@@ -45,5 +45,35 @@ namespace CoreCMS.Systems
             //no issues found
             return true;
         }
+
+        /// <summary>
+        /// Get a page of contents from the collection taking into consideration it's parents.
+        /// If parent == null than it will return only root contents.
+        /// </summary>
+        /// <param name="page">Page number, starts from 0.</param>
+        /// <param name="pageSize">Size of the pages (number of contents to retrieve), must be greater or equal to 1.</param>
+        /// <param name="parent">If different than null will return only chield of the given content.</param>
+        /// <returns>An array with the paginated contetns.</returns>
+        public Content[] GetPage(Content parent, int page = 0, int pageSize = 25)
+        {
+            if (page < 0)
+                page = 0;
+
+            if (pageSize < 1)
+                pageSize = 1;
+
+            IQueryable<Content> query;
+
+            if(parent == null)
+            {
+                query = Collection.AsQueryable().Where(x => x.ParentId == Guid.Empty);
+            }
+            else
+            {
+                query = Collection.AsQueryable().Where(x => x.ParentId == parent.Id);
+            }
+
+            return query.Skip(page * pageSize).Take(pageSize).ToArray();
+        }
     }
 }

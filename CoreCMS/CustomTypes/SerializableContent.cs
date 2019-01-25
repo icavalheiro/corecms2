@@ -6,7 +6,7 @@ namespace CoreCMS
     public sealed class SerializableContent
     {
         public string ContentTypeFullName;
-        public string Json;
+        public string JsonString;
 
         /// <summary>
         /// Constructor.
@@ -22,7 +22,19 @@ namespace CoreCMS
         public SerializableContent(BaseContent content)
         {
             ContentTypeFullName = content.TypeName;
-            Json = JsonConvert.SerializeObject(content);
+            JsonString = JsonConvert.SerializeObject(content);
+        }
+
+        /// <summary>
+        /// Constructor.
+        /// Build this object using a serialized JSON string that contains a instance of this class.
+        /// </summary>
+        /// <param name="json">JSON serialized string.</param>
+        public SerializableContent(string json)
+        {
+            var deserializedContent = JsonConvert.DeserializeObject<SerializableContent>(json);
+            ContentTypeFullName = deserializedContent.ContentTypeFullName;
+            JsonString = deserializedContent.JsonString;
         }
 
         /// <summary>
@@ -40,9 +52,18 @@ namespace CoreCMS
             var contentType = Cms.AvailableSubTypes[ContentTypeFullName];
 
             //asks json.net to deserialize it into the type we known
-            var deserializedObject = (BaseContent)JsonConvert.DeserializeObject(Json, contentType);
+            var deserializedObject = (BaseContent)JsonConvert.DeserializeObject(JsonString, contentType);
 
             return deserializedObject;
+        }
+
+        /// <summary>
+        /// Converts this instance to a JSON string.
+        /// </summary>
+        /// <returns>A JSON string containing this object.</returns>
+        public string ToJson()
+        {
+            return JsonConvert.SerializeObject(this);
         }
     }
 }

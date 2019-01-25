@@ -8,5 +8,8 @@
 </head>
 <body>
     @RenderBody()
+    @RenderSection("ScriptsData", false)
+    <script src="~/cms/js/index.js"></script>
+    @RenderSection("Scripts", false)
 </body>
 </html>
