@@ -8,7 +8,7 @@
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <RepositoryUrl>https://github.com/icavalheiro/corecms2</RepositoryUrl>
     <PackageProjectUrl>https://github.com/icavalheiro/corecms2</PackageProjectUrl>
-    <RepositoryType>GitHUB Private</RepositoryType>
+    <RepositoryType>GitHUB</RepositoryType>
     <Description>CoreCMS is a non-relational, code first, mongodb based, headless CMS made from developers to developers.</Description>
   </PropertyGroup>
 
