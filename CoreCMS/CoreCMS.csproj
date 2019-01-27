@@ -2,7 +2,18 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+    <Version>2.0.0</Version>
+    <Authors>Ivan Schuaste Cavalheiro [ivanscavalheiro@hotmail.com]</Authors>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <RepositoryUrl>https://github.com/icavalheiro/corecms2</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/icavalheiro/corecms2</PackageProjectUrl>
+    <RepositoryType>GitHUB Private</RepositoryType>
   </PropertyGroup>
+
+  <ItemGroup>
+      <None Include="LICENSE.txt" Pack="true" PackagePath="" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MongoDB.Driver" Version="2.7.2" />
